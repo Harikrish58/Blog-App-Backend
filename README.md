@@ -6,8 +6,7 @@ This is the backend of the **DevHub Blog Application**, built with **Node.js**, 
 
 ## 🌐 Live API
 
-**Base URL:**  
-`https://blog-app-backend-77mk.onrender.com`
+🔗 **[Base URL](https://blog-app-backend-77mk.onrender.com)**
 
 ---
 
