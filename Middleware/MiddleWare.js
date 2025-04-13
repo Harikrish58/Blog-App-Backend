@@ -22,7 +22,7 @@ export const middleware = (req, res, next) => {
       return next(errorHandler(403, "Invalid or expired token"));
     }
 
-    req.user = user;
+    req.user = { id: user.id || user._id, isAdmin: user.isAdmin };
     next();
   });
 };
