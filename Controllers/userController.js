@@ -4,6 +4,8 @@ import bcryptjs from "bcryptjs"; // Importing bcryptjs for password hashing
 
 // Controller to handle updating a user profile
 export const updateUser = async (req, res, next) => {
+  console.log("🔍 req.params.id:", req.params.id);
+  console.log("🔐 req.user.id:", req.user.id);
   // Check if the user is trying to update their own account
   if (req.params.id !== req.user.id) {
     return next(errorHandler(403, "You can only update your account!")); // Send a 403 Forbidden error if not
