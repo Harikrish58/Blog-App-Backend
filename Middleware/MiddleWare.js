@@ -6,23 +6,24 @@ dotenv.config(); // Initialize .env configuration
 
 // Middleware to verify JWT token for protected routes
 export const middleware = (req, res, next) => {
-  // 🔍 Get the token from custom 'token' header (used in your frontend)
-  const token = req.headers.token;
+  // First, check standard Bearer token format
+  const authHeader = req.headers.authorization;
+  const token =
+    authHeader && authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : req.headers.token; // fallback to custom 'token' header
 
-  // If token is missing, block access
   if (!token) {
     return next(errorHandler(401, "Unauthorized user - token missing"));
   }
 
-  // If token is found, verify it
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
-    // If token is invalid or expired
     if (err) {
       return next(errorHandler(403, "Invalid or expired token"));
     }
 
-    // Attach decoded user info (id, isAdmin) to the request
     req.user = user;
-    next(); // Proceed to the next middleware/controller
+    next();
   });
 };
+
