@@ -32,12 +32,6 @@ You can test and explore all endpoints with Postman:
 
 ---
 
-## 🌐 Live API
-
-> **Base URL:** `https://blog-app-backend-77mk.onrender.com`
-
----
-
 ## 🛠️ Tech Stack
 
 - **Node.js** + **Express.js**
