@@ -14,7 +14,7 @@ const app = express();
 // Middleware to handle cross-origin requests
 app.use(
   cors({
-    origin: "*",          // Allow requests from all origins (⚠️ see notes below)
+    origin: "https://devhub-blogapp.netlify.app",          // only allow this frontend domain
     credentials: true,    // Allow cookies and credentials
   })
 );
