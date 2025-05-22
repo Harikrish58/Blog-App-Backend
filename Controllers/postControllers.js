@@ -7,7 +7,7 @@ export const createPost = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create a post"));
   }
-  
+
   // Ensure that both title and content are provided in the request body
   if (!req.body.title || !req.body.content) {
     return next(errorHandler(400, "All fields are required"));
@@ -89,6 +89,29 @@ export const getPostById = async (req, res, next) => {
     });
   } catch (error) {
     // If an error occurs, pass it to the error handler
+    next(error);
+  }
+};
+
+// Controller to delete a post by its ID
+export const deletePost = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post)
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
+
+    // Check if the user is an admin; if not, return a 403 error (Forbidden)
+    if (!req.user.isAdmin) {
+      return next(errorHandler(403, "Only admins can delete posts"));
+    }
+
+    await post.deleteOne();
+    res
+      .status(200)
+      .json({ success: true, message: "Post deleted successfully" });
+  } catch (error) {
     next(error);
   }
 };

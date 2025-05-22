@@ -2,6 +2,7 @@ import express from "express"; // Import Express framework
 import { middleware } from "../Middleware/MiddleWare.js"; // Import custom authentication middleware
 import {
   createPost,
+  deletePost,
   getAllPosts,
   getPostById,
 } from "../Controllers/postControllers.js"; // Import post-related controller functions
@@ -22,6 +23,11 @@ router.get("/getallposts", middleware, getAllPosts);
 // @desc    Get a single blog post by its ID
 // @access  Private (requires token)
 router.get("/getpost/:id", middleware, getPostById);
+
+// @route   DELETE /api/post/:id
+// @desc    Delete a blog post by its ID
+// @access  Private (requires token + admin role)
+router.delete("/:id",middleware ,  deletePost)
 
 // Export the router for use in the main server
 export default router;
